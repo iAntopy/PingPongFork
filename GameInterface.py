@@ -190,6 +190,7 @@ class Game:
 			return
 		if move < 0:
 			return
+		print("Key input : ", move)
 		for i in range(len(self.rackets)):
 			rack = self.rackets[i]
 			if (rack.id == target_id):
@@ -272,7 +273,10 @@ class Game:
 
 			self.step()
 
-			self.clock.tick (self.framerate) #			NOTE : DEBUG
+			if self.debugMode:
+				self.clock.tick(self.framerate) #			NOTE : DEBUG
+			else:
+				self.clock.sleep(self.framerate)
 
 
 
@@ -429,9 +433,10 @@ class Game:
 
 	# ------------------------------------------- GAME RENDERING ------------------------------------------- #
 
-	def setWindow(self, _win):
+	def setWindow(self, _win, clock=None):
+		''' clock should be either pg.time.Clock() or asyncio. '''
 		self.win = _win
-		self.clock = pg.time.Clock()
+		self.clock = clock#pg.time.Clock()
 
 
 	def refreshScreen(self): #			NOTE : DEBUG
@@ -616,10 +621,10 @@ if __name__ == '__main__': #		NOTE : DEBUG
 	pg.init()
 	g = Game(1, True)
 
-	g.setWindow(pg.display.set_mode((1280, 1280)))
+	g.setWindow(pg.display.set_mode((1280, 1280)), pg.time.Clock())
 	pg.display.set_caption(g.name)
 
-	#g.addPlayer( "Player 1", 1 )
+	g.addPlayer( "Player 1", 1 )
 
 	g.start()
 	g.run()

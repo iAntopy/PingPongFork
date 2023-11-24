@@ -1,3 +1,4 @@
+import cfg
 from master import pg
 import Addons as ad
 
@@ -14,11 +15,15 @@ class GameObject:
 		self.setSize(_w, _h)
 		self.setPos(_x, _y)
 
-		self.box = pg.Rect(_game.width / 2, _game.height / 2, _w, _h) # 	NOTE : DEBUG
+		self.debugMode = _debug
+		self.box = None
+		if cfg.DEBUG_MODE:
+			self.box = pg.Rect(_game.width / 2, _game.height / 2, _w, _h) # 	NOTE : DEBUG
 
 	def drawSelf(self):
-		self.box.center = (self.px, self.py) # 								NOTE : DEBUG
-		pg.draw.rect(self.game.win, self.game.col_obj, self.box)
+		if cfg.DEBUG_MODE:
+			self.box.center = (self.px, self.py) # 								NOTE : DEBUG
+			pg.draw.rect(self.game.win, self.game.col_obj, self.box)
 
 
 # ---------------------------------------------- POSITION ---------------------------------------------- #

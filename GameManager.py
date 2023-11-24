@@ -1,4 +1,7 @@
-import pygame as pg
+import cfg
+if cfg.DEBUG_MODE:
+	import pygame as pg
+
 import asyncio as asy
 import random as rdm
 import Addons as ad
@@ -124,6 +127,7 @@ class GameManager:
 	def takePlayerInputs( self ): # 					NOTE : DEBUG
 		# read local player inputs
 		for event in pg.event.get():
+			print("Pressed key : ", event.type)
 
 			if event.type == pg.KEYDOWN:
 				k = event.key
@@ -330,22 +334,22 @@ async def main():  # ASYNC IS HERE
 def addAllGames( gm ): #								NOTE : DEBUG
 	gameID = 1
 
-	gm.startGame( gm.addGame( "Pi", gameID ))
-	gameID += 1
-	gm.startGame( gm.addGame( "Po", gameID ))
-	gameID += 1
-	gm.startGame( gm.addGame( "Ping", gameID ))
-	gameID += 1
+	# gm.startGame( gm.addGame( "Pi", gameID ))
+	# gameID += 1
+	# gm.startGame( gm.addGame( "Po", gameID ))
+	# gameID += 1
+	# gm.startGame( gm.addGame( "Ping", gameID ))
+	# gameID += 1
 	gm.startGame( gm.addGame( "Pong", gameID ))
 	gameID += 1
-	gm.startGame( gm.addGame( "Pinger", gameID ))
-	gameID += 1
-	gm.startGame( gm.addGame( "Ponger", gameID ))
-	gameID += 1
-	gm.startGame( gm.addGame( "Pingest", gameID ))
-	gameID += 1
-	gm.startGame( gm.addGame( "Pongest", gameID ))
-	gameID += 1
+	# gm.startGame( gm.addGame( "Pinger", gameID ))
+	# gameID += 1
+	# gm.startGame( gm.addGame( "Ponger", gameID ))
+	# gameID += 1
+	# gm.startGame( gm.addGame( "Pingest", gameID ))
+	# gameID += 1
+	# gm.startGame( gm.addGame( "Pongest", gameID ))
+	# gameID += 1
 
 	print ("select a player (1-8)")
 

@@ -4,14 +4,14 @@ try:
 	from . import GameControler as gc
 	from . import PlayerControler as pl
 	from . import BotControler as bc
-	from . import Addon as ad
+	from . import Addons as ad
 except ImportError:
 	import cfg
 	import GameObject as go
 	import GameControler as gc
 	import PlayerControler as pl
 	import BotControler as bc
-	import Addon as ad
+	import Addons as ad
 	# from master import go
 	# from master import gc
 	# from master import ad
@@ -454,7 +454,7 @@ class Game:
 	def setWindow(self, _win, clock=None):
 		''' clock should be either pg.time.Clock() or asyncio. '''
 		self.win = _win
-		self.clock = clock#pg.time.Clock()
+		self.clock = pg.time.Clock()
 
 
 	def refreshScreen(self): #			NOTE : DEBUG

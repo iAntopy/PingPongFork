@@ -1,6 +1,10 @@
 #import pygame as pg
-try:						from Keybindings import *
-except ModuleNotFoundError:	from .Keybindings import *
+#try:						from Keybindings import *
+#except ModuleNotFoundError:	from .Keybindings import *
+try:
+    from .Keybindings import *
+except ImportError:
+    from Keybindings import *
 
 # keyboard keys
 # UP = pg.K_UP

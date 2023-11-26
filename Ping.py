@@ -1,10 +1,17 @@
-#from .master import pg
-from . import cfg
+try:
+	from . import cfg
+	from .master import ad
+	from .master import go
+	from .master import gi
+except ImportError:
+	import cfg
+	from master import ad
+	from master import go
+	from master import gi
+
 if cfg.DEBUG_MODE:
 	import pygame as pg
-from .master import go
-from .master import gi
-from . import Addons as ad
+
 
 class Ping(gi.Game):
 	name = "Ping"

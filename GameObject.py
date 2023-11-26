@@ -1,10 +1,17 @@
-from . import cfg
-if cfg.DEBUG_MODE:
-	import pygame as pg
-from . import Addons as ad
+try:
+	from . import cfg
+	from .master import ad
+except ImportError:
+	import cfg
+	from master import ad
+
+
+# from . import cfg
+# if cfg.DEBUG_MODE:
+# 	import pygame as pg
+# from . import Addons as ad
 #import .Addons as ad
 #from .master import ad
-from . import cfg
 
 # ------------------------------------------ GAMEOBJECT CLASS ------------------------------------------ #
 

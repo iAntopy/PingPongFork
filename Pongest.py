@@ -1,9 +1,19 @@
-from . import cfg
+try:
+	from . import cfg
+	from .master import ad
+	from .master import go
+	from .master import gi
+except ImportError:
+	import cfg
+	from master import ad
+	from master import go
+	from master import gi
+
+
 if cfg.DEBUG_MODE:
 	import pygame as pg
-from master import go
-from master import gi
-import Addons as ad
+# from master import go
+# from master import gi
 
 class Pongest(gi.Game):
 	name = "Pongest"

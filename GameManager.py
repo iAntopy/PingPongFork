@@ -3,21 +3,38 @@ import random as rdm
 import sys
 import time
 
-from . import cfg
-from . import Addons as ad
+
+try:
+	from . import cfg
+	from .master import ad
+	from . import PlayerControler as pl
+	from . import BotControler as bc
+	from .Ping import Ping
+	from .Pong import Pong
+	from .Pingest import Pingest
+except ImportError:
+	import cfg
+	from master import ad
+	import PlayerControler as pl
+	import BotControler as bc
+	from Ping import Ping
+	from Pong import Pong
+	from Pingest import Pingest
+
+
 
 if cfg.DEBUG_MODE:
 	import pygame as pg
 
 #from Pi import Pi
 #from Po import Po
-from .Ping import Ping
-from .Pong import Pong
+# from .Ping import Ping
+# from .Pong import Pong
 
 
 #from .Pinger import Pinger
 #from Ponger import Ponger
-from .Pingest import Pingest
+# from .Pingest import Pingest
 #from Pongest import Pongest
 
 class GameManager:

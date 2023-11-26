@@ -1,12 +1,21 @@
-from . import cfg
+try:
+	from . import cfg
+	from .master import go
+	from .master import gc
+	from .master import ad
+	from . import PlayerControler as pl
+	from . import BotControler as bc
+except ImportError:
+	import cfg
+	from master import go
+	from master import gc
+	from master import ad
+	import PlayerControler as pl
+	import BotControler as bc
+
 if cfg.DEBUG_MODE:
 	import pygame as pg
-from .master import go
-from .master import gc
-from .master import ad
 
-from . import PlayerControler as pl
-from . import BotControler as bc
 #import Addons as ad
 import time #											NOTE : DEBUG
 import sys #	to exit properly

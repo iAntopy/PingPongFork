@@ -50,9 +50,9 @@ class Game:
 	factor_rack = 1.10
 	gravity = 0
 
-	#col_bgr = pg.Color('black')
-	#col_fnt = pg.Color('grey25')
-	#col_obj = pg.Color('white')
+	col_bgr = pg.Color('black')
+	col_fnt = pg.Color('grey25')
+	col_obj = pg.Color('white')
 
 	last_time = time.time_ns() #						NOTE : DEBUG
 
@@ -309,8 +309,8 @@ class Game:
 		if self.useAI:
 			self.makeBotsPlay()
 
-		#if self.debugMode:
-		#	self.refreshScreen()
+		if self.debugMode:
+			self.refreshScreen()
 		else:
 			#self.sendUpdateInfo()
 			pass

@@ -1,17 +1,20 @@
 try:
 	from . import cfg
-	from .master import go
-	from .master import gc
-	from .master import ad
+	from . import GameObject as go
+	from . import GameControler as gc
 	from . import PlayerControler as pl
 	from . import BotControler as bc
+	from . import Addon as ad
 except ImportError:
 	import cfg
-	from master import go
-	from master import gc
-	from master import ad
+	import GameObject as go
+	import GameControler as gc
 	import PlayerControler as pl
 	import BotControler as bc
+	import Addon as ad
+	# from master import go
+	# from master import gc
+	# from master import ad
 
 if cfg.DEBUG_MODE:
 	import pygame as pg

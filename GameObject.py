@@ -1,4 +1,6 @@
-#from master import pg
+from . import cfg
+if cfg.DEBUG_MODE:
+	import pygame as pg
 from . import Addons as ad
 #import .Addons as ad
 #from .master import ad

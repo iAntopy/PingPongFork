@@ -1,6 +1,3 @@
-#if cfg.DEBUG_MODE:
-#	import pygame as pg
-
 import asyncio as asy
 import random as rdm
 import sys
@@ -8,6 +5,10 @@ import time
 
 from . import cfg
 from . import Addons as ad
+
+if cfg.DEBUG_MODE:
+	import pygame as pg
+
 #from Pi import Pi
 #from Po import Po
 from .Ping import Ping

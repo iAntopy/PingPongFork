@@ -1,4 +1,7 @@
 #from .master import pg
+from . import cfg
+if cfg.DEBUG_MODE:
+	import pygame as pg
 from .master import go
 from .master import gi
 from . import Addons as ad

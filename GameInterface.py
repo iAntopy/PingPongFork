@@ -1,9 +1,11 @@
-from master import pg
-from master import go
-from master import gc
-import PlayerControler as pl
-import BotControler as bc
-import Addons as ad
+#from master import pg
+from .master import go
+from .master import gc
+from .master import ad
+
+from . import PlayerControler as pl
+from . import BotControler as bc
+#import Addons as ad
 import time #											NOTE : DEBUG
 import sys #	to exit properly
 
@@ -34,9 +36,9 @@ class Game:
 	factor_rack = 1.10
 	gravity = 0
 
-	col_bgr = pg.Color('black')
-	col_fnt = pg.Color('grey25')
-	col_obj = pg.Color('white')
+	#col_bgr = pg.Color('black')
+	#col_fnt = pg.Color('grey25')
+	#col_obj = pg.Color('white')
 
 	last_time = time.time_ns() #						NOTE : DEBUG
 
@@ -122,9 +124,9 @@ class Game:
 
 	def addPlayer(self, username, playerID):
 		if self.state != ad.STARTING:
-			print ("cannot add players once the game started")
+			raise ValueError ("cannot add players once the game started")
 		elif (self.isGameFull()):
-			print ("this game is full")
+			raise ValueError ("this game is full")
 
 		player = pl.PlayerControler( self, username, playerID )
 		player.setRacket( self.rackets[ self.playerCount ].id )
@@ -143,7 +145,8 @@ class Game:
 				self.playerCount -= 1
 				self.controlerCount -= 1
 				#return ( racketID )
-		print ("player #" + str(playerID) + " not found in this game")
+		else:
+			print ("player #" + str(playerID) + " not found in this game")
 
 
 	def hasPlayer(self, username):
@@ -239,6 +242,7 @@ class Game:
 	# ---------------------------------------------- CORE CMDS --------------------------------------------- #
 
 	def start(self):
+		print("Try Starting Game")
 		if (self.state == ad.STARTING):
 			self.initBots()
 			self.state = ad.PLAYING
@@ -291,8 +295,8 @@ class Game:
 		if self.useAI:
 			self.makeBotsPlay()
 
-		if self.debugMode:
-			self.refreshScreen()
+		#if self.debugMode:
+		#	self.refreshScreen()
 		else:
 			#self.sendUpdateInfo()
 			pass

@@ -1,13 +1,25 @@
-from master import pg
-from master import go
-from master import gi
-import Addons as ad
+#from master import pg
+from .master	import go
+from .master import gi
+
+from . import Addons as ad
 
 class Pong(gi.Game):
 	name = "Pong"
 
 	width = 2048
 	racketCount = 2
+
+	def __str__(self):
+		return	f"Game {self.gameID}"\
+				+ "	Player 1: " \
+				+ f"		- pos: {self.rackets[0].getPos()}, "\
+				+ f"		- score: {self.scores[0]}\n"\
+				+ "	Player 2: " \
+				+ f"		- pos: {self.rackets[1].getPos()}, "\
+				+ f"		- score: {self.scores[1]}\n"\
+				+ f"	Ball: 	"\
+				+ f"		- pos: {self.balls[0].getPos()}\n"
 
 	def initRackets(self):
 		self.rackets.append( go.GameObject( 1, self, self.size_b, self.height * (1 / 2), self.size_b, self.size_r ))

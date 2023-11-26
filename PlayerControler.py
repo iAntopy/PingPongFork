@@ -1,5 +1,5 @@
-from master import gc
-import Addons as ad
+from .master import gc
+from . import Addons as ad
 
 # controler class
 class PlayerControler(gc.GameControler):

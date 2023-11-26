@@ -1,4 +1,5 @@
-import Addons as ad
+#import Addons as ad
+from .master import ad
 
 # controler class
 class GameControler:

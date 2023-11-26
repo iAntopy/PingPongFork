@@ -1,6 +1,8 @@
-import cfg
-from master import pg
-import Addons as ad
+#from master import pg
+from . import Addons as ad
+#import .Addons as ad
+#from .master import ad
+from . import cfg
 
 # ------------------------------------------ GAMEOBJECT CLASS ------------------------------------------ #
 
@@ -15,7 +17,7 @@ class GameObject:
 		self.setSize(_w, _h)
 		self.setPos(_x, _y)
 
-		self.debugMode = _debug
+		self.debugMode = cfg.DEBUG_MODE
 		self.box = None
 		if cfg.DEBUG_MODE:
 			self.box = pg.Rect(_game.width / 2, _game.height / 2, _w, _h) # 	NOTE : DEBUG

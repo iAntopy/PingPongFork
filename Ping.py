@@ -1,7 +1,7 @@
-from master import pg
-from master import go
-from master import gi
-import Addons as ad
+#from .master import pg
+from .master import go
+from .master import gi
+from . import Addons as ad
 
 class Ping(gi.Game):
 	name = "Ping"

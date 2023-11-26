@@ -1,4 +1,7 @@
-from . import cfg
+try:
+	from . import cfg
+except ImportError:
+	import cfg
 
 # keyboard keys # TODO: Change them, these are wrong. Check with javascript event key codes.
 UP =     'up'

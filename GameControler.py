@@ -1,5 +1,8 @@
-#import Addons as ad
-from .master import ad
+try:
+	from .master import ad
+except ImportError:
+	from master import ad
+
 
 # controler class
 class GameControler:

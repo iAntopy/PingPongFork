@@ -1,6 +1,11 @@
-from master import pg
-from master import go
-from master import gi
+try:
+	from .master import pg
+	from .master import go
+	from .master import gi
+except ImportError:
+	from master import pg
+	from master import go
+	from master import gi
 
 class Pi(gi.Game):
 	name = "Pi"

@@ -1,6 +1,6 @@
 #import pygame as pg
 try:						from Keybindings import *
-except ModuleNotFoundError:	from game.PingPongRebound.Keybindings import *
+except ModuleNotFoundError:	from .Keybindings import *
 
 # keyboard keys
 # UP = pg.K_UP

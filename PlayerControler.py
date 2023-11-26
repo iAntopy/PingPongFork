@@ -1,5 +1,10 @@
-from .master import gc
-from . import Addons as ad
+try:
+	from .master import gc
+	from . import Addons as ad
+
+except ImportError:
+	from master import gc
+	import Addons as ad
 
 # controler class
 class PlayerControler(gc.GameControler):

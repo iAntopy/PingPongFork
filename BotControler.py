@@ -1,5 +1,12 @@
-from .master import gc
-from . import Addons as ad
+try:
+	from . import cfg
+	from .master import ad
+	from .master import gc
+except ImportError:
+	import cfg
+	from master import ad
+	from master import gc
+
 
 # NOTE : this is a fairly dumb ai, especially for split screen games
 # NOTE : it could be improved by calculating the ball's trajectory and going where it will be

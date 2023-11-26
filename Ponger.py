@@ -10,10 +10,9 @@ except ImportError:
 	from master import gi
 
 
-
 # from . import cfg
-# if cfg.DEBUG_MODE:
-# 	import pygame as pg
+if cfg.DEBUG_MODE:
+	import pygame as pg
 # from master import go
 # from master import gi
 # import Addons as ad

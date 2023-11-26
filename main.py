@@ -1,16 +1,31 @@
-from Pi import Pi
-from Po import Po
-from Ping import Ping
-from Pong import Pong
-from Pinger import Pinger
-from Ponger import Ponger
-from Pingest import Pingest
-from Pongest import Pongest
-from GameInterface import Game
-from GameManager import main
-
 import asyncio as asy
-import pygame as pg
+
+try:
+	from . import cfg
+	from .Pi import Pi
+	from .Po import Po
+	from .Ping import Ping
+	from .Pong import Pong
+	from .Pinger import Pinger
+	from .Ponger import Ponger
+	from .Pingest import Pingest
+	from .Pongest import Pongest
+	from .GameInterface import Game
+	from .GameManager import main
+except ImportError:
+	from Pi import Pi
+	from Po import Po
+	from Ping import Ping
+	from Pong import Pong
+	from Pinger import Pinger
+	from Ponger import Ponger
+	from Pingest import Pingest
+	from Pongest import Pongest
+	from GameInterface import Game
+	from GameManager import main
+
+if cfg.DEBUG_MODE:
+	import pygame as pg
 
 
 

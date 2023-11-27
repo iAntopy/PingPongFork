@@ -93,20 +93,20 @@ class GameManager:
 		#	newGame.setWindow(self.win)
 		async with self.lock:
 			self.gameDict[gameID] = newGame
-			#self.gameCount += 1
-			#if self.gameCount > self.maxGameCount:
-			#	self.maxGameCount = self.gameCount
+		#self.gameCount += 1
+		#if self.gameCount > self.maxGameCount:
+		#	self.maxGameCount = self.gameCount
 
-			#if self.debugMode:
-				#self.addPlayerToGame( GameID, "Tester " + str( GameID ), GameID ) #		NOTE : DEBUG
-			if not self.runGames:
-				print('Calling asyncio.run on self.mainloop()')
-				self.runGames = True
-				#asy.run(self.mainloop)
-				self.t0 = time.monotonic()
-				asy.get_event_loop().create_task(self.mainloop())
+		#if self.debugMode:
+			#self.addPlayerToGame( GameID, "Tester " + str( GameID ), GameID ) #		NOTE : DEBUG
+		if not self.runGames:
+			print('Calling asyncio.run on self.mainloop()')
+			self.runGames = True
+			#asy.run(self.mainloop)
+			self.t0 = time.monotonic()
+			asy.get_event_loop().create_task(self.mainloop())
 
-			print('Print after asyncio.')
+		print('Print after asyncio.')
 
 		return gameID
 

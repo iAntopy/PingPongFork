@@ -50,9 +50,10 @@ class Game:
 	factor_rack = 1.10
 	gravity = 0
 
-	col_bgr = pg.Color('black')
-	col_fnt = pg.Color('grey25')
-	col_obj = pg.Color('white')
+	if cfg.DEBUG_MODE:
+		col_bgr = pg.Color('black')
+		col_fnt = pg.Color('grey25')
+		col_obj = pg.Color('white')
 
 	last_time = time.time_ns() #						NOTE : DEBUG
 

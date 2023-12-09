@@ -54,7 +54,8 @@ class GameManager:
 
 
 	async def addGame( self, gameType, gameID, connector = None ):
-		Initialiser = self.getInitialiser( gameType, connector )
+		Initialiser = self.getInitialiser( gameType )
+		print("\n\n ADDGAME CONNECTOR : ", connector)
 
 		if( Initialiser == None ):
 			print( "could not add game of type " + gameType )
@@ -66,7 +67,7 @@ class GameManager:
 
 		async with self.dictLock:
 
-			self.gameDict[ gameID ] = Initialiser( gameID )
+			self.gameDict[ gameID ] = Initialiser( gameID, connector )
 
 			if cfg.DEBUG_MODE :
 				self.gameDict.get( gameID ).setWindow( self.win )
@@ -219,9 +220,10 @@ class GameManager:
 			#async with self.dictLock:
 				for( key, game )in self.gameDict.items():
 					async with game.gameLock:
-
+						print('TICK TOCK : game connector: ', game.connector, ' DEBUG_MODE : ', cfg.DEBUG_MODE)
 						if game.connector != None and not cfg.DEBUG_MODE:
-							game.eventControler()
+							print('TICK TOCK : eventControler')
+							await game.eventControler()
 
 						if game.state == df.STARTING:
 							pass

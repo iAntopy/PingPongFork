@@ -414,53 +414,94 @@ class GameManager:
 	# ---------------------------------------------- INFO CMDS --------------------------------------------- #
 
 
+	# @staticmethod
+	# def getInitInfo( gameType ): #				INIT INFO GENERATOR
+	# 	gameClass = GameManager.getGameClass( gameType )
+
+	# 	if( gameClass == None ):
+	# 		print( "Error : GameManager.getInitInfo(): invalid game type" )
+	# 		return None
+
+	# 	infoDict = {}
+
+	# 	infoDict[ "gameType" ] = gameClass.name
+	# 	infoDict[ "sizeInfo" ] = GameManager.getSizeInfo( gameClass )
+	# 	infoDict[ "racketCount" ] = gameClass.racketCount
+	# 	infoDict[ "racketInitPos" ] = GameManager.getRacketInitPos( gameClass )
+	# 	infoDict[ "ballInitPos" ] = GameManager.getBallInitPos( gameClass )
+	# 	infoDict[ "teamCount" ] = len( gameClass.scores )
+
+	# 	return( infoDict )
+
 	@staticmethod
 	def getInitInfo( gameType ): #				INIT INFO GENERATOR
 		gameClass = GameManager.getGameClass( gameType )
+		initRacketPositions = GameManager.getRacketInitPos( gameClass )
 
 		if( gameClass == None ):
 			print( "Error : GameManager.getInitInfo(): invalid game type" )
 			return None
 
-		infoDict = {}
+		return {
+			'gameType': gameClass.name,
+			'sizeInfo': GameManager.getSizeInfo( gameClass ),
+			'racketCount': gameClass.racketCount,
+			'orientations': [initRacketPositions[2 + i * 3] for i in range(gameClass.racketCount)],
+			'update': {
+				'racketPos': [p for p in initRacketPositions if not isinstance(p, str)],
+				'ballPos': GameManager.getBallInitPos( gameClass ),
+				'lastPonger': 0,
+				'scores': [0 for i in range(gameClass.racketCount)]
+			}
+		}
 
-		infoDict[ "gameType" ] = gameClass.name
-		infoDict[ "sizeInfo" ] = GameManager.getSizeInfo( gameClass )
-		infoDict[ "racketCount" ] = gameClass.racketCount
-		infoDict[ "racketInitPos" ] = GameManager.getRacketInitPos( gameClass )
-		infoDict[ "ballInitPos" ] = GameManager.getBallInitPos( gameClass )
-		infoDict[ "teamCount" ] = len( gameClass.scores )
+		# infoDict[ "gameType" ] = gameClass.name
+		# infoDict[ "sizeInfo" ] = GameManager.getSizeInfo( gameClass )
+		# infoDict[ "racketCount" ] = gameClass.racketCount
+		# infoDict[ "racketInitPos" ] = GameManager.getRacketInitPos( gameClass )
+		# infoDict[ "ballInitPos" ] = GameManager.getBallInitPos( gameClass )
+		# infoDict[ "teamCount" ] = len( gameClass.scores )
 
-		return( infoDict )
-
+		# return( infoDict )
 
 	def getPlayerInfo(): #							PLAYER INFO GENERATOR
 		pass #										TODO : IMPLEMENT ME
 
 
 	def getGameUpdates( self ): #					UPDATE INFO GENERATOR
-		updateDict = {}
+		return {key: game.getUpdateInfo() for key, game in self.gameDict.items()}
+		# updateDict = {}
 
-		for key, game in self.gameDict.items():
-			updateDict[ key ] = game.getUpdateInfo()
+		# for key, game in self.gameDict.items():
+		# 	updateDict[ key ] = game.getUpdateInfo()
 
-		return updateDict
+		# return updateDict
 
 	# --------------------------------------------------------------
 
 	@staticmethod
 	def getSizeInfo( gameClass ):
-		sizeDict = {}
+		return {
+			"width": gameClass.width,
+			"height": gameClass.height,
+			"sRacket": gameClass.size_r,
+			"sBall": gameClass.size_b
+			# "wRatio": 1 / gameClass.width,
+			# "hRatio": 1 / gameClass.height,
+		}
 
-		print( gameClass.width, gameClass.height )
-		sizeDict[ "width" ] = gameClass.width
-		sizeDict[ "height" ] = gameClass.height
-		sizeDict[ "wRatio" ] = 1 / gameClass.width
-		sizeDict[ "hRatio" ] = 1 / gameClass.height
-		sizeDict[ "sRacket" ] = gameClass.size_r
-		sizeDict[ "sBall" ] = gameClass.size_b
+		# return( sizeDict )
+		# sizeDict = {}
 
-		return( sizeDict )
+		# print( gameClass.width, gameClass.height )
+		# sizeDict[ "width" ] = gameClass.width
+		# sizeDict[ "height" ] = gameClass.height
+		# sizeDict[ "wRatio" ] = 1 / gameClass.width
+		# sizeDict[ "hRatio" ] = 1 / gameClass.height
+		# sizeDict[ "sRacket" ] = gameClass.size_r
+		# sizeDict[ "sBall" ] = gameClass.size_b
+
+		# return( sizeDict )
 
 
 	@staticmethod

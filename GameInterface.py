@@ -100,6 +100,8 @@ class Game:
 		self.controlers = []
 		self.balls = []
 
+		# self.updateStruct = dict()
+
 		self.initRackets()
 		self.initBalls()
 
@@ -610,35 +612,50 @@ class Game:
 
 
 	def getUpdateInfo( self ):
-		infoDict = {}
+		# self.updateStruct.update((
+		# 	("racketPos", self.getRacketPos()),
+		# 	("ballPos", self.getBallPos()),
+		# 	("lastPonger", self.last_ponger),
+		# 	("scores", self.scores)
+		# ))
+		# return self.updateStruct
+		return {
+			# "gameID": self.gameID,
+			"racketPos": self.getRacketPos(),
+			"ballPos": self.getBallPos(),
+			"lastPonger": self.last_ponger,
+			"scores": self.scores
+		}
+		# infoDict = {}
 
-		infoDict[ "gameID" ] = self.gameID
-		infoDict[ "racketPos" ] = self.getRacketPos()
-		infoDict[ "ballPos" ] = self.getBallPos()
-		infoDict[ "lastPonger" ] = self.last_ponger
-		infoDict[ "scores" ] = self.scores
+		# infoDict[ "gameID" ] = self.gameID
+		# infoDict[ "racketPos" ] = self.getRacketPos()
+		# infoDict[ "ballPos" ] = self.getBallPos()
+		# infoDict[ "lastPonger" ] = self.last_ponger
+		# infoDict[ "scores" ] = self.scores
 
-		return( infoDict )
+		# return( infoDict )
 
 
 	def getRacketPos( self ):
-		pos = []
+		return [c for r in self.rackets for c in (r.getPosX(), r.getPosY())]
+		# pos = []
+		# for i in range( len( self.rackets )):
+		# 	pos.append( self.rackets[ i ].getPosX() )
+		# 	pos.append( self.rackets[ i ].getPosY() )
 
-		for i in range( len( self.rackets )):
-			pos.append( self.rackets[ i ].getPosX() )
-			pos.append( self.rackets[ i ].getPosY() )
-
-		return( pos )
+		# return( pos )
 
 
 	def getBallPos( self ):
-		pos = []
+		return [c for b in self.balls for c in (b.getPosX(), b.getPosY())]
+		# pos = []
 
-		for i in range( len( self.balls )):
-			pos.append( self.balls[ i ].getPosX() )
-			pos.append( self.balls[ i ].getPosY() )
+		# for i in range( len( self.balls )):
+		# 	pos.append( self.balls[ i ].getPosX() )
+		# 	pos.append( self.balls[ i ].getPosY() )
 
-		return( pos )
+		# return( pos )
 
 
 	def getMode( self ):

@@ -30,6 +30,42 @@
 	// followed by player info packets
 }
 
+
+{ // Ian alternate getInitInfo()
+	"gameType": "pong",
+	"sizeInfo": {
+		"width": 2048,
+		"height": 1024,
+		"wRatio": 0.0005,
+		"hRatio": 0.001,
+		"rSize": 160,
+		"bSize": 20
+	},
+	"racketCount" : 4,
+	"teamCount": 2,
+	"orientations": ["d1", "d2", "d3", "d4"],
+
+	"update": {
+		"racketPos": [
+			"x1", "y1",
+			"x2", "y2",
+			"x3", "y3",
+			"x4", "y4"
+		],
+		"ballPos": [
+			"x1", "y1"
+		],
+		"lastPonger": 0,
+		"scores": [
+			"s1",
+			"s2",
+			"s3",
+			"s4"
+		]
+	}
+	// followed by player info packets
+}
+
 { // getPlayerInfo()( not in gameManager )
 	"gameID": 1,
 	"playerInfo": // login and racket id

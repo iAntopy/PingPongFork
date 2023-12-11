@@ -21,6 +21,7 @@ except ModuleNotFoundError:
 	import game.PingPongRebound.PlayerControler as pl
 	import game.PingPongRebound.BotControler as bc
 	import game.PingPongRebound.defs as df
+	import asyncio
 
 # game class
 class Game:
@@ -98,6 +99,8 @@ class Game:
 		self.rackets = []
 		self.controlers = []
 		self.balls = []
+
+		# self.updateStruct = dict()
 
 		self.initRackets()
 		self.initBalls()
@@ -271,16 +274,31 @@ class Game:
 #			key; // 	event code( key when keyboard related )
 #		}
 
+	# @staticmethod
+	# def __events_generator_extractor(evs):
+	# 	# coro_evs = await self.connector.getEvents()
+	# 	# asyncio.wait_for(coro_evs)
+
+	# 	for ev in evs:
+	# 		yield ev
+
+	# def getNextEvent( self ):
 	def getNextEvent( self ):
 		if cfg.DEBUG_MODE:
 			return pg.event.get()
 
 		elif( self.connector != None ):
-			self.connector.getEvent()
+			return self.connector.getEvents()
+			# evs = await self.connector.getEvents()
+			# return self.__events_generator_extractor(evs)
+			# return await self.connector.getEvent()
 
 
-	def eventControler( self ):
-		for event in self.getNextEvent():
+	async def eventControler( self ):
+		print('GameController checking for player events.')
+		# while (event := self.getNextEvent()):
+		for event in await self.getNextEvent():
+			print('GameController popped event : ', event)
 
 			# starting the game
 			if event.type == df.START:
@@ -326,7 +344,7 @@ class Game:
 		else:
 			for i in range( len( self.controlers )):
 				if( self.controlers[ i ].playerID == playerID ):
-					self.controlers[ i ].handleInputs( key )
+					self.controlers[ i ].handleKeyInput( key )
 					return
 
 			print( "player #" + str( playerID ) + " is not in this game" )
@@ -591,35 +609,50 @@ class Game:
 
 
 	def getUpdateInfo( self ):
-		infoDict = {}
+		# self.updateStruct.update((
+		# 	("racketPos", self.getRacketPos()),
+		# 	("ballPos", self.getBallPos()),
+		# 	("lastPonger", self.last_ponger),
+		# 	("scores", self.scores)
+		# ))
+		# return self.updateStruct
+		return {
+			# "gameID": self.gameID,
+			"racketPos": self.getRacketPos(),
+			"ballPos": self.getBallPos(),
+			"lastPonger": self.last_ponger,
+			"scores": self.scores
+		}
+		# infoDict = {}
 
-		infoDict[ "gameID" ] = self.gameID
-		infoDict[ "racketPos" ] = self.getRacketPos()
-		infoDict[ "ballPos" ] = self.getBallPos()
-		infoDict[ "lastPonger" ] = self.last_ponger
-		infoDict[ "scores" ] = self.scores
+		# infoDict[ "gameID" ] = self.gameID
+		# infoDict[ "racketPos" ] = self.getRacketPos()
+		# infoDict[ "ballPos" ] = self.getBallPos()
+		# infoDict[ "lastPonger" ] = self.last_ponger
+		# infoDict[ "scores" ] = self.scores
 
-		return( infoDict )
+		# return( infoDict )
 
 
 	def getRacketPos( self ):
-		pos = []
+		return [c for r in self.rackets for c in (r.getPosX(), r.getPosY())]
+		# pos = []
+		# for i in range( len( self.rackets )):
+		# 	pos.append( self.rackets[ i ].getPosX() )
+		# 	pos.append( self.rackets[ i ].getPosY() )
 
-		for i in range( len( self.rackets )):
-			pos.append( self.rackets[ i ].getPosX() )
-			pos.append( self.rackets[ i ].getPosY() )
-
-		return( pos )
+		# return( pos )
 
 
 	def getBallPos( self ):
-		pos = []
+		return [c for b in self.balls for c in (b.getPosX(), b.getPosY())]
+		# pos = []
 
-		for i in range( len( self.balls )):
-			pos.append( self.balls[ i ].getPosX() )
-			pos.append( self.balls[ i ].getPosY() )
+		# for i in range( len( self.balls )):
+		# 	pos.append( self.balls[ i ].getPosX() )
+		# 	pos.append( self.balls[ i ].getPosY() )
 
-		return( pos )
+		# return( pos )
 
 
 	def getMode( self ):

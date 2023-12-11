@@ -237,11 +237,8 @@ class GameManager:
 
 						elif game.state == df.ENDING:
 							if cfg.DEBUG_MODE and self.windowID == key:
-
 								print( "this game no longer exists" )
 								print( "please select a valid game( 1-8 )" )
-
-								self.windowID = 0
 								self.emptyDisplay()
 
 							else: #					send closing info packet from here ?
@@ -308,17 +305,25 @@ class GameManager:
 						print( "please select a valid game( 1-8 )" )
 					return
 
-				# rotate game to view
+				# find the next game to view
 				elif k == pg.K_q or k == pg.K_e:
-					if k == pg.K_e:
-						self.windowID += 1
-					else:
-						self.windowID -= 1
+					i = 0
+					# NOTE : this loops over the games until it finds one that can be displayed
+					while i <= self.maxGameCount:
 
-					if self.windowID <= 0:
-						self.windowID = self.maxGameCount
-					elif self.windowID > self.maxGameCount:
-						self.windowID = 1
+						i += 1
+						if k == pg.K_e: #			NOTE : to go forward
+							self.windowID += 1
+						else: #						NOTE : to go backward
+							self.windowID -= 1
+
+						if self.windowID > self.maxGameCount:
+							self.windowID = 1
+						elif self.windowID < 0:
+							self.windowID = self.maxGameCount
+
+						if self.gameDict.get( self.windowID ) != None:
+							i += self.maxGameCount #	NOTE : to break out of the loop
 
 				# select game to view
 				elif k == pg.K_0:
@@ -436,7 +441,7 @@ class GameManager:
 	@staticmethod
 	def getInitInfo( gameType ): #				INIT INFO GENERATOR
 		gameClass = GameManager.getGameClass( gameType )
-		initRacketPositions = GameManager.getRacketInitPos( gameClass )
+		initRacketsPos = GameManager.getRacketInitPos( gameClass )
 
 		if( gameClass == None ):
 			print( "Error : GameManager.getInitInfo(): invalid game type" )
@@ -446,35 +451,34 @@ class GameManager:
 			'gameType': gameClass.name,
 			'sizeInfo': GameManager.getSizeInfo( gameClass ),
 			'racketCount': gameClass.racketCount,
-			'orientations': [initRacketPositions[2 + i * 3] for i in range(gameClass.racketCount)],
+			'orientations': [ initRacketsPos[( i * 3 ) + 2 ] for i in range( gameClass.racketCount )],
 			'update': {
-				'racketPos': [p for p in initRacketPositions if not isinstance(p, str)],
+				'racketPos': [ coord for coord in initRacketsPos if not isinstance( coord, str )],
 				'ballPos': GameManager.getBallInitPos( gameClass ),
 				'lastPonger': 0,
-				'scores': [0 for i in range(gameClass.racketCount)]
+				'scores': [ 0 for _ in range( gameClass.racketCount )]
 			}
 		}
-
+		# infoDict = {}
 		# infoDict[ "gameType" ] = gameClass.name
 		# infoDict[ "sizeInfo" ] = GameManager.getSizeInfo( gameClass )
 		# infoDict[ "racketCount" ] = gameClass.racketCount
 		# infoDict[ "racketInitPos" ] = GameManager.getRacketInitPos( gameClass )
 		# infoDict[ "ballInitPos" ] = GameManager.getBallInitPos( gameClass )
 		# infoDict[ "teamCount" ] = len( gameClass.scores )
-
 		# return( infoDict )
+
 
 	def getPlayerInfo(): #							PLAYER INFO GENERATOR
 		pass #										TODO : IMPLEMENT ME
 
 
 	def getGameUpdates( self ): #					UPDATE INFO GENERATOR
-		return {key: game.getUpdateInfo() for key, game in self.gameDict.items()}
-		# updateDict = {}
+		return { key: game.getUpdateInfo() for key, game in self.gameDict.items() }
 
+		# updateDict = {}
 		# for key, game in self.gameDict.items():
 		# 	updateDict[ key ] = game.getUpdateInfo()
-
 		# return updateDict
 
 	# --------------------------------------------------------------
@@ -486,21 +490,13 @@ class GameManager:
 			"height": gameClass.height,
 			"sRacket": gameClass.size_r,
 			"sBall": gameClass.size_b
-			# "wRatio": 1 / gameClass.width,
-			# "hRatio": 1 / gameClass.height,
 		}
 
-		# return( sizeDict )
 		# sizeDict = {}
-
-		# print( gameClass.width, gameClass.height )
 		# sizeDict[ "width" ] = gameClass.width
 		# sizeDict[ "height" ] = gameClass.height
-		# sizeDict[ "wRatio" ] = 1 / gameClass.width
-		# sizeDict[ "hRatio" ] = 1 / gameClass.height
 		# sizeDict[ "sRacket" ] = gameClass.size_r
 		# sizeDict[ "sBall" ] = gameClass.size_b
-
 		# return( sizeDict )
 
 
